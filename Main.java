@@ -2,6 +2,7 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+        /*
         Scanner scanner = new Scanner(System.in); // create this object to read user inputs
 
         // Initial setup variables
@@ -132,6 +133,28 @@ public class Main {
             }
         }
 
-        scanner.close(); // Close the scanner to keep the computer's memory clean
+        scanner.close(); // Close the scanner to keep the computer's memory clean */
+
+        Scanner sc = new Scanner(System.in);
+        int num ;
+        do {
+            System.out.println("please inter number between 1 and 100" );
+            num = sc.nextInt();
+
+        }while (num < 1 || num > 100); // write the reverse (the opposite of what we want )
+
+
+        int i=1;
+        int numberDivided=0;
+        while (i<=num){
+            if(num % i==0){
+                numberDivided++;
+            }
+            i++;
+        }
+        System.out.println(numberDivided);
+
+
+
     }
 }
