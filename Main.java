@@ -2,159 +2,121 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        /*
-        Scanner scanner = new Scanner(System.in); // create this object to read user inputs
+        // Assume there are 5 students and each student has grades in 3 subjects.
+        //
 
-        // Initial setup variables
-        final int correctPIN = 1234; // why final ? because this value can not edit it
-        int maxAttempts = 3;
-        int attemptsUsed = 0;
-        boolean loggedIn = false;
-
-        // ATM State variables
-        double balance = 2500.75;
-        int transactionCount = 0;
-
-        do {  // i used it to verify PIN  before check condition
-            System.out.print("Enter your 4-digit PIN: ");
-            int enteredPin = scanner.nextInt(); // that mean wait for the user to type a number and save it in 'enteredPin'
-            attemptsUsed++;
-
-            if (enteredPin == correctPIN) { // Check if the typed PIN equal the correct PIN (1234)
-                loggedIn = true;
-                System.out.println("Login successful!\n");
-            } else {
-                int remaining = maxAttempts - attemptsUsed; // to calculate how many attempts are left by subtracting
-                if (remaining > 0) {
-                    System.out.println("Incorrect PIN. You have " + remaining + " attempts left.");
-                } else {
-                    System.out.println("Your account has been locked.");
-                    return;
-                }
-            }
-        } while (!loggedIn && attemptsUsed < maxAttempts);
-
-        // Keeps the ATM menu running repeatedly after successful login
-        while (loggedIn) {
-            System.out.println("/////////////////////////");
-            System.out.println("1. Check Balance");
-            System.out.println("2. Deposit");
-            System.out.println("3. Withdraw");
-            System.out.println("4. Show Account Status");
-            System.out.println("5. Exit");
-            System.out.println("////////////////////////");
-            System.out.print("Choose an option: ");
-
-            int choice = scanner.nextInt(); // take integer from user
-
-            // Jump to the case based on the chosen option
-            switch (choice) {
-                case 1:
-                    // Check Balance
-                    System.out.println("Your current balance is: $" + balance);
-                    break;
-
-                case 2:
-                    // Deposit
-                    System.out.print("Enter deposit amount: ");
-                    double depositAmount = scanner.nextDouble();
-
-
-                    if (depositAmount <= 0) {
-                        System.out.println("Invalid amount.\n");
-                    } else {
-                        balance += depositAmount; // Add the deposit amount directly to their balance
-                        transactionCount++;
-                        // Bonus Challenge: Display updated balance
-                        System.out.println("Successfully deposited $" + depositAmount + " New Balance: $" +  balance);
-                    }
-                    break;
-
-                case 3:
-                    // Withdraw
-                    System.out.print("Enter withdrawal amount: ");
-                    double withdrawAmount = scanner.nextDouble();
-
-
-                    if (withdrawAmount == 0) {
-                        System.out.println("Transaction cancelled.\n");
-                        // Check if  negative number
-                    } else if (withdrawAmount < 0) {
-                        System.out.println("Invalid amount.\n");
-                        // Check if they are trying to take out more money than they actually have
-                    } else if (withdrawAmount > balance) {
-                        System.out.println("Insufficient balance.\n");
-                    } else {
-                        balance -= withdrawAmount;
-                        transactionCount++;
-
-                        System.out.printf("Successfully withdraw $" + withdrawAmount + " New Balance: $" +  balance);
-
-                        // Check if their account balance dropped to exactly 0.0
-                        if (balance == 0.0) {
-                            System.out.println("Warning: Your account is empty.");
-                        }
-                        System.out.println();
-                    }
-                    break;
-
-                case 4:
-                    // Show Account Status
-                    // Check if their balance is 5000 or more
-                    if (balance >= 5000) {
-                        System.out.println("Account Status: VIP Customer\n");
-                        // Check if their balance is between 1000 and 4999.99
-                    } else if (balance >= 1000 && balance < 5000) {
-                        System.out.println("Account Status: Regular Customer\n");
-                    } else {
-                        System.out.println("Account Status: Low Balance\n");
-                    }
-                    break;
-
-                case 5:
-                    // Exit
-                    System.out.println("Thank you for using our ATM.");
-                    // Bonus Challenge: Display total successful transactions
-                    System.out.println("Total successful transactions completed: " + transactionCount);
-
-                    // Set loggedIn to false so the main loop knows it's time to stop
-                    loggedIn = false;
-                    break;
-
-                default:
-                    // Invalid choice fallback
-                    System.out.println("Invalid option.\n");
-                    break;
-            }
-
-            // Checking if the break statement was triggered to terminate the while loop
-            if (!loggedIn) {
-                break;
-            }
-        }
-
-        scanner.close(); // Close the scanner to keep the computer's memory clean */
+        String[] students = new String[5];
+        double[][] grade = new double[5][3];
 
         Scanner sc = new Scanner(System.in);
-        int num ;
-        do {
-            System.out.println("please inter number between 1 and 100" );
-            num = sc.nextInt();
+        System.out.println("Please enter your student names and grades:");
 
-        }while (num < 1 || num > 100); // write the reverse (the opposite of what we want )
+        for (int i = 0; i < students.length; i++) {
+            System.out.println("Enter Student [" + i + "] name:");
+            students[i] = sc.nextLine();
 
+            for (int j = 0; j < 3; j++) {
+                // Grades must be between 0 and 100. If an invalid grade is entered, print 'Invalid grade.'
+                // we use do while to ask again
+                do {
+                    System.out.println("Enter grade of Subject [" + j + "]:");
+                    grade[i][j] = sc.nextDouble();
 
-        int i=1;
-        int numberDivided=0;
-        while (i<=num){
-            if(num % i==0){
-                numberDivided++;
+                    if (grade[i][j] < 0 || grade[i][j] > 100) {
+                        System.out.println("Invalid grade.");
+                    }
+                } while (grade[i][j] < 0 || grade[i][j] > 100);
             }
-            i++;
+
+            sc.nextLine(); // why because do not skip a line in the output
         }
-        System.out.println(numberDivided);
 
+        System.out.println("/////////////////////////////////////////");
 
+        System.out.println("Main Menu");
+        System.out.println("1. Show All Students names.");
+        System.out.println("2. Show all Students grades in each subject.");
+        System.out.println("3. Search Student by name.");
+        System.out.println("4. Count Passed Students");
+        System.out.println("0. Exit");
 
+        System.out.println("choice");
+        int choice = sc.nextInt();
+        sc.nextLine();
+
+        int count = 0;
+
+        switch (choice) {
+            case 1:
+                for (int i = 0; i < students.length; i++) {
+                    System.out.println("Student Names is " + students[i]);
+                }
+                break;
+
+            case 2:
+                for (int i = 0; i < students.length; i++) {
+                    System.out.print("Grades for " + students[i] + ": ");
+                    for (int j = 0; j < 3; j++) {
+                        double g = grade[i][j];
+                        char letter;
+                        if (g >= 85) letter = 'A';
+                        else if (g >= 75) letter = 'B';
+                        else if (g >= 65) letter = 'C';
+                        else if (g >= 50) letter = 'D';
+                        else letter = 'F';
+
+                        System.out.print("[Subject " + j + ": " + g + " (" + letter + ")] ");
+                    }
+
+                    System.out.println();
+                }
+                break;
+
+            case 3:
+                boolean found = false; // to solve not found repetition  // HOW  => we create  boolean found that if found name return true else return false and print not found once
+                System.out.print("\nEnter student name to search: ");
+                String searchName = sc.nextLine();
+
+                for (int i = 0; i < students.length; i++) {
+                    // why use equalsIgnoreCase because student probably enter your name capital or small letters
+                    if (students[i].equalsIgnoreCase(searchName)) {
+                        System.out.println("Student Found! " + students[i] + " is at index [" + i + "]");
+                        found = true;
+                        break;
+                    }
+                }
+
+                if (!found) {
+                    System.out.println("Student Not Found!");
+                }
+                break;
+
+            case 4:
+                for (int i = 0; i < students.length; i++) {
+                    double sum = 0;
+                    for (int j = 0; j < 3; j++) {
+                        sum += grade[i][j];
+                    }
+                    double average = sum / 3;
+
+                    if (average >= 60) {
+                        System.out.println(students[i] + " passed");
+                        count++;
+                    } else {
+                        System.out.println(students[i] + " Failed");
+                    }
+                }
+                System.out.println("the number of student passed is " + count);
+                break;
+
+            case 0:
+                System.out.println("Exit");
+                break;
+
+            default:
+                System.out.println("Invalid choice");
+        }
+
+        sc.close();
     }
 }
